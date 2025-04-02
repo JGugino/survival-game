@@ -8,17 +8,17 @@ Game::Game(int windowWidth, int windowHeight)
     m_windowWidth = windowWidth;
     m_windowHeight = windowHeight;
 
-    camera = Camera2D(Vector2{(float)windowWidth / 2, (float)windowHeight / 2}, Vector2{(float)windowWidth / 2, (float)windowHeight / 2}, 0, 1.2f);
-
     log.Info("Initializing Island Generator");
     islandGenerator = Island();
     islandGenerator.InitIslandGrid();
+
+    camera = Camera2D(Vector2{(float)windowWidth / 2, (float)windowHeight / 2}, islandGenerator.GetSpawnPoint(), 0, 1.2f);
 
     log.Info("Initializing Entity Manager");
     entityManager = Entities();
     entityManager.InitEntityGrid();
 
-    player = Player(camera.target, 38, 38, 100.0f, 2.0f);
+    player = Player(islandGenerator.GetSpawnPoint(), 40, 40, 100.0f, 2.0f);
 }
 
 Game::~Game()
@@ -28,7 +28,12 @@ Game::~Game()
 
 void Game::Update()
 {
-    camera.target = player.position;
+    player.Update(islandGenerator.GetMapWidth() * islandGenerator.GetCellSize(), islandGenerator.GetMapHeight() * islandGenerator.GetCellSize());
+
+    if (player.IsMoving())
+    {
+        camera.target = player.position;
+    }
 
     LimitCamera();
 }
@@ -61,11 +66,15 @@ void Game::LimitCamera()
     float targetX = camera.target.x;
     float targetY = camera.target.y;
 
-    // Ensures the camera doesn't go outside the map
-    if (targetX - halfWindowWidth < 0)
+    // log.Info(std::to_string(targetY));
+    // log.Info(std::to_string(0 + (halfWindowWidth - player.GetWidth()) - 66));
+
+    // TODO: Make sure camera goes fully to edge of the map.
+    //  Ensures the camera doesn't go outside the map
+    if (targetX <= (halfWindowWidth - player.GetWidth()) - 66)
     {
         // log.Warn("Camera Outside - Left");
-        camera.target.x = halfWindowWidth;
+        camera.target.x = (halfWindowWidth - player.GetWidth()) - 66;
     }
     if (targetX + halfWindowWidth > islandWidth)
     {

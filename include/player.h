@@ -7,7 +7,9 @@ public:
     Player();
     Player(Vector2 position, int width, int height, float health, float speed);
     void HandleInput();
+    void Update(int islandWidth, int islandHeight);
     void Draw();
+    bool IsMoving();
     float GetHealth();
     int GetWidth();
     int GetHeight();
@@ -20,8 +22,7 @@ private:
         LEFT = 2,
         RIGHT = 3
     };
-
-    int width, height;
+    bool moving;
     float health;
     float speed;
     Direction facingDirection;

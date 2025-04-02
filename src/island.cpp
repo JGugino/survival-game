@@ -6,6 +6,7 @@ Island::Island()
     m_cellSize = 40;
     m_mapWidth = 64;
     m_mapHeight = 64;
+    spawnPoint = Vector2{(float)GetRandomValue(0, m_mapWidth * m_cellSize), (float)GetRandomValue(0, m_mapHeight * m_cellSize)};
     GenerateNewIslandNoiseImage(GetRandomValue(0, 100), GetRandomValue(0, 100), 2.0f);
     InitIslandGrid();
 }
@@ -102,6 +103,37 @@ Color Island::GetColorForType(Island::TileType tileType)
     default:
         return Color{75, 77, 242, 255};
     }
+}
+
+bool Island::IsWalkableTile(int x, int y)
+{
+    if (islandGrid[x][y] == TileType::WATER)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+void Island::SelectValidSpawnPoint()
+{
+    //
+    int selectedX = GetRandomValue(0, m_mapWidth * m_cellSize);
+    int selectedY = GetRandomValue(0, m_mapHeight * m_cellSize);
+
+    if (IsWalkableTile(selectedX, selectedY))
+    {
+        spawnPoint = Vector2{(float)GetRandomValue(0, m_mapWidth * m_cellSize), (float)GetRandomValue(0, m_mapHeight * m_cellSize)};
+        return;
+    }
+
+    SelectValidSpawnPoint();
+    return;
+}
+
+Vector2 Island::GetSpawnPoint()
+{
+    return spawnPoint;
 }
 
 int Island::GetMapWidth()
