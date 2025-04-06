@@ -4,7 +4,7 @@
 class Player : public Entity
 {
 public:
-    Player();
+    explicit Player();
     void InitPlayer(Vector2 position, int width, int height, float health, float speed);
     void HandleInput();
     void Update(int islandWidth, int islandHeight);

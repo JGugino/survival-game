@@ -20,7 +20,7 @@ void Player::InitPlayer(Vector2 position, int width, int height, float health, f
 
 void Player::Draw(int windowWidth, int windowHeight)
 {
-    DrawRectangle(position.x, position.y, width, height, YELLOW);
+    DrawRectangleRounded(Rectangle{position.x, position.y, (float)width, (float)height}, 0.1f, 1, YELLOW);
 }
 
 void Player::SetPlayerPosition(Vector2 position)
@@ -30,30 +30,23 @@ void Player::SetPlayerPosition(Vector2 position)
 
 void Player::Update(int islandWidth, int islandHeight)
 {
-    // std::cout << "X: " << position.x << "\n";
-    // std::cout << "Y: " << position.y << "\n";
-
     // Limit player in X direction
     if (position.x <= 0)
     {
-        std::cout << "x < 0 \n";
         position.x = 0;
     }
     if (position.x >= islandWidth - width)
     {
-        std::cout << "x > width \n";
         position.x = islandWidth - width;
     }
 
     // Limit player in Y direction
     if (position.y <= 0)
     {
-        std::cout << "y < 0 \n";
         position.y = 0;
     }
     if (position.y >= islandHeight - height)
     {
-        std::cout << "x > height \n";
         position.y = islandHeight - height;
     }
 }

@@ -13,11 +13,13 @@ public:
     bool InventoryVisible();
 
 private:
-    bool inventoryVisible;
     const int hotbarSize = 9;
     Container inventory;
     Items hotbar[9];
     int cellSize;
+    int selectedHotbarSlot;
+    bool inventoryVisible;
     void ClearInventory();
     void ClearHotbar();
+    void HotbarInputHandler();
 };

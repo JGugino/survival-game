@@ -18,9 +18,7 @@ Game::Game(int windowWidth, int windowHeight)
     entityManager = Entities();
     entityManager.InitEntityGrid();
 
-    inventory.DrawInventoryToConsole();
-    inventory.DrawHotbarToConsole();
-
+    // Sets the players position to the island generators spawn point
     player.SetPlayerPosition(islandGenerator.GetSpawnPoint());
 }
 
