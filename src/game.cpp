@@ -18,7 +18,10 @@ Game::Game(int windowWidth, int windowHeight)
     entityManager = Entities();
     entityManager.InitEntityGrid();
 
-    player = Player(islandGenerator.GetSpawnPoint(), 40, 40, 100.0f, 2.0f);
+    inventory.DrawInventoryToConsole();
+    inventory.DrawHotbarToConsole();
+
+    player.SetPlayerPosition(islandGenerator.GetSpawnPoint());
 }
 
 Game::~Game()
@@ -44,13 +47,21 @@ void Game::Draw()
 
     islandGenerator.DrawIsland();
     entityManager.DrawEntites();
-    player.Draw();
+    player.Draw(m_windowWidth, m_windowHeight);
 
     EndMode2D();
+
+    inventory.DrawHotbar(m_windowWidth, m_windowHeight);
+
+    if (inventory.InventoryVisible())
+    {
+        inventory.DrawInventory(m_windowWidth, m_windowHeight);
+    }
 }
 
 void Game::HandleInput()
 {
+    inventory.HandleInput();
     player.HandleInput();
 }
 

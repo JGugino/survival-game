@@ -2,9 +2,12 @@
 #include "raylib.h"
 #include <iostream>
 
-Player::Player() {}
+Player::Player()
+{
+    InitPlayer(Vector2{0, 0}, 40, 40, 100.0f, 2.0f);
+}
 
-Player::Player(Vector2 position, int width, int height, float health, float speed)
+void Player::InitPlayer(Vector2 position, int width, int height, float health, float speed)
 {
     this->position = position;
     this->width = width;
@@ -15,9 +18,14 @@ Player::Player(Vector2 position, int width, int height, float health, float spee
     moving = false;
 }
 
-void Player::Draw()
+void Player::Draw(int windowWidth, int windowHeight)
 {
     DrawRectangle(position.x, position.y, width, height, YELLOW);
+}
+
+void Player::SetPlayerPosition(Vector2 position)
+{
+    this->position = position;
 }
 
 void Player::Update(int islandWidth, int islandHeight)
@@ -52,6 +60,7 @@ void Player::Update(int islandWidth, int islandHeight)
 
 void Player::HandleInput()
 {
+
     if (IsKeyDown(KEY_W))
     {
         position.y -= speed;

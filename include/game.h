@@ -3,6 +3,7 @@
 #include "island.h"
 #include "entities.h"
 #include "player.h"
+#include "./inventory.h"
 
 class Game
 {
@@ -20,5 +21,6 @@ private:
     Camera2D camera;
     Island islandGenerator;
     Entities entityManager;
-    Player player;
+    Player player = Player();
+    Inventory inventory = Inventory();
 };

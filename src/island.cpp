@@ -107,7 +107,7 @@ Color Island::GetColorForType(Island::TileType tileType)
 
 bool Island::IsWalkableTile(int x, int y)
 {
-    if (islandGrid[x][y] == TileType::WATER)
+    if (islandGrid[x][y] == 0)
     {
         return false;
     }
@@ -118,17 +118,19 @@ bool Island::IsWalkableTile(int x, int y)
 void Island::SelectValidSpawnPoint()
 {
     //
-    int selectedX = GetRandomValue(0, m_mapWidth * m_cellSize);
-    int selectedY = GetRandomValue(0, m_mapHeight * m_cellSize);
+    int selectedX = GetRandomValue(8, m_mapWidth);
+    int selectedY = GetRandomValue(8, m_mapHeight);
 
     if (IsWalkableTile(selectedX, selectedY))
     {
-        spawnPoint = Vector2{(float)GetRandomValue(0, m_mapWidth * m_cellSize), (float)GetRandomValue(0, m_mapHeight * m_cellSize)};
+        spawnPoint = Vector2{(float)selectedX * m_cellSize, (float)selectedY * m_cellSize};
         return;
     }
-
-    SelectValidSpawnPoint();
-    return;
+    else
+    {
+        SelectValidSpawnPoint();
+        return;
+    }
 }
 
 Vector2 Island::GetSpawnPoint()
