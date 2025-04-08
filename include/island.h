@@ -21,6 +21,8 @@ public:
     int GetMapWidth();
     int GetMapHeight();
     int GetCellSize();
+    int GetStandingTile() const;
+    void GetTileIDAtWorldPosition(int x, int y);
     Vector2 GetSpawnPoint();
     int islandGrid[64][64];
 
@@ -29,6 +31,7 @@ private:
     Image m_islandNoiseMap;
     int m_mapWidth, m_mapHeight;
     int m_cellSize;
+    int m_standingTile;
     void GenerateNewIslandNoiseImage(int offsetX, int offsetY, float scale);
     TileType GetPixelType(Color pixelColor);
     Color GetColorForType(TileType tileType);

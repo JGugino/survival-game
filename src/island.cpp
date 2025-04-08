@@ -133,6 +133,19 @@ void Island::SelectValidSpawnPoint()
     }
 }
 
+void Island::GetTileIDAtWorldPosition(int x, int y)
+{
+    int gridX = x / m_cellSize;
+    int gridY = y / m_cellSize;
+
+    m_standingTile = islandGrid[x][y];
+}
+
+int Island::GetStandingTile() const
+{
+    return m_standingTile;
+}
+
 Vector2 Island::GetSpawnPoint()
 {
     return spawnPoint;

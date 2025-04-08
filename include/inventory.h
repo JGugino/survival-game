@@ -19,6 +19,17 @@ private:
     int cellSize;
     int selectedHotbarSlot;
     bool inventoryVisible;
+    int inventoryWidthPadding;
+    int inventoryHeightPadding;
+    int inventoryHeightOffset;
+    int inventoryCellWidthOffset;
+    int inventoryCellHeightOffset;
+    int hotbarWidthOffset;
+    int hotbarHeightOffset;
+    int hotbarWidthPadding;
+    int hotbarHeightPadding;
+    int hotbarCellWidthOffset;
+    int hotbarCellHeightOffset;
     void ClearInventory();
     void ClearHotbar();
     void HotbarInputHandler();
